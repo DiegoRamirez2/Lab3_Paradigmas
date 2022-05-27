@@ -1,4 +1,4 @@
-package DobbleGame;
+package model;
 import java.util.ArrayList;
 import java.util.function.IntFunction;
 
@@ -13,7 +13,7 @@ public class Card extends ArrayList<Object> {
 
     @Override
     public <T> T[] toArray(IntFunction<T[]> generator) {
-        return super.toArray(generator);
+        return (T[]) super.toArray(Object[]::new);
     }
 
 }

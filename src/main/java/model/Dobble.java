@@ -1,7 +1,7 @@
-package DobbleGame;
+package model;
 import java.util.ArrayList;
 
-public class Dobble {
+public class Dobble extends ArrayList<Object> {
     public ArrayList<Card> cardsSet;
     public ArrayList<Object> elements;
 
@@ -105,6 +105,10 @@ public class Dobble {
         aux.removeAll(cardsSet);
         return aux;
     }
+    public void DeleteCard(int i){
+        cardsSet.remove(i);
+    }
+
     @Override
     public String toString() {
         return "El cardsSet es: " + cardsSet + ", y la lista de elementos es: " + elements;
@@ -115,11 +119,5 @@ public class Dobble {
     }
     public ArrayList<Object> getElements() {
         return elements;
-    }
-    public void setCardsSet(ArrayList<Card> cardsSet) {
-        this.cardsSet = cardsSet;
-    }
-    public void setElements(ArrayList<Object> elements) {
-        this.elements = elements;
     }
 }

@@ -1,8 +1,7 @@
-package DobbleGame;
+package model;
 import java.util.ArrayList;
 
-
-public class main {
+public class Menu{
     public static void main(String[] args){
         ArrayList<Object> elementos = new ArrayList<>();
         elementos.add(1);
@@ -13,11 +12,11 @@ public class main {
         elementos.add(6);
         elementos.add(7);
         Dobble newDobble = new Dobble(elementos, 3, -1);
-        ArrayList<Card> missingC = newDobble.missingCards();
         //System.out.println(newDobble.nthCard(newDobble.cardsSet, 6));
         System.out.println(newDobble.cardsSet);
-        System.out.println(missingC);
-        System.out.println(newDobble.numCards());
-        System.out.println(newDobble.IsDobble());
+        DobbleGame newDobbleGame = new DobbleGame(4, newDobble, "StackMode");
+        System.out.println(newDobbleGame);
+        newDobbleGame.StackMode();
+        System.out.println(newDobbleGame);
     }
 }
