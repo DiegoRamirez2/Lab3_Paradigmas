@@ -13,4 +13,10 @@ public class Player {
     public int ObtainPoint(){
         return Cartas.size() / 2;
     }
+
+    @Override
+    public String toString() {
+        return "[" + Username + ", " + Cartas + "]";
+    }
 }
+

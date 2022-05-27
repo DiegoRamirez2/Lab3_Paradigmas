@@ -1,6 +1,7 @@
 package model;
 import java.util.ArrayList;
 
+
 public class DobbleGame {
     public Dobble DobbleSet;
     public Integer NumPlayers;
@@ -18,7 +19,7 @@ public class DobbleGame {
         this.GameArea = new ArrayList<>();
     }
 
-    public String GameStatus() {
+    public String Status() {
         return GameStatus;
     }
 
@@ -28,6 +29,44 @@ public class DobbleGame {
             DobbleSet.cardsSet.remove(0);
             GameArea.add(aux);
         }
+    }
+    public void Register(Player User){
+        if (ListPlayers.size() == 0){
+            ListPlayers.add(User);
+        }
+        else{
+            for(int i = 0; i < ListPlayers.size(); i++){
+                Player aux = ListPlayers.get(i);
+                if (User.Username == aux.Username){
+                    return;
+                }
+            }
+            ListPlayers.add(User);
+        }
+    }
+    public String whoseTurnsIsIt(){
+        if(ListPlayers.size() == 0){
+            return "No hay jugadores";
+        }
+        else{
+            Player aux = ListPlayers.get(0);
+            return aux.Username;
+        }
+    }
+    public int Score(String UserName){
+        if (ListPlayers.size() != 0) {
+            for (int i = 0; i < ListPlayers.size(); i++) {
+                Player aux = ListPlayers.get(i);
+                if (aux.Username == UserName) {
+                    return aux.ObtainPoint();
+                }
+            }
+        }
+        return 0;
+    }
+    public void AppendPoints(){
+        Player aux = ListPlayers.get(0);
+        aux.Cartas.addAll(GameArea);
     }
 
     @Override

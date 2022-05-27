@@ -16,7 +16,14 @@ public class Menu{
         System.out.println(newDobble.cardsSet);
         DobbleGame newDobbleGame = new DobbleGame(4, newDobble, "StackMode");
         System.out.println(newDobbleGame);
+        Player P1 = new Player("Diego");
+        newDobbleGame.Register(P1);
+        Player P2 = new Player("Alejandro");
+        newDobbleGame.Register(P2);
         newDobbleGame.StackMode();
         System.out.println(newDobbleGame);
+        newDobbleGame.AppendPoints();
+        System.out.println(newDobbleGame);
+
     }
 }
