@@ -1,5 +1,6 @@
 package model;
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class DobbleGame {
@@ -35,9 +36,8 @@ public class DobbleGame {
             ListPlayers.add(User);
         }
         else{
-            for(int i = 0; i < ListPlayers.size(); i++){
-                Player aux = ListPlayers.get(i);
-                if (User.Username == aux.Username){
+            for (Player aux : ListPlayers) {
+                if (User.Username.equals(aux.Username)) {
                     return;
                 }
             }
@@ -55,9 +55,8 @@ public class DobbleGame {
     }
     public int Score(String UserName){
         if (ListPlayers.size() != 0) {
-            for (int i = 0; i < ListPlayers.size(); i++) {
-                Player aux = ListPlayers.get(i);
-                if (aux.Username == UserName) {
+            for (Player aux : ListPlayers) {
+                if (Objects.equals(aux.Username, UserName)) {
                     return aux.ObtainPoint();
                 }
             }
@@ -67,6 +66,57 @@ public class DobbleGame {
     public void AppendPoints(){
         Player aux = ListPlayers.get(0);
         aux.Cartas.addAll(GameArea);
+        GameArea.clear();
+    }
+    public void AddCard(Card card){
+        if(!(GameStatus.equals("Terminado"))) {
+            DobbleSet.cardsSet.add(card);
+            if (DobbleSet.IsDobble()) {
+                return;
+            }
+            DobbleSet.cardsSet.remove(DobbleSet.numCards() - 1);
+        }
+    }
+    public void Null(){
+        if(!(GameStatus.equals("Terminado"))){
+            if(GameArea.size() > 0){
+                System.out.println("Ya existen cartas en el area de juego");
+            }
+            else {
+                if (GameMode.equalsIgnoreCase("STACKMODE")) {
+                    StackMode();
+                }
+            }
+        }
+    }
+    public void spotIt(Object Elemento){
+        if(!(GameStatus.equals("Terminado"))){
+            if(GameArea.size() < 2){
+                System.out.println("No se puede realizar comparacion de cartas");
+            }
+            else{
+                Card aux = new Card();
+                aux.addAll(GameArea.get(0));
+                aux.retainAll(GameArea.get(1));
+                if(aux.size() == 1 || Elemento == aux.get(0)){
+                    AppendPoints();
+                }
+            }
+        }
+    }
+    public void pass() {
+        if (!(GameStatus.equals("Terminado"))) {
+            if (GameArea.size() < 2) {
+                System.out.println("\nNo existen cartas en el area de juego\n");
+            } else {
+                DobbleSet.cardsSet.add(0, GameArea.get(1));
+                DobbleSet.cardsSet.add(0, GameArea.get(0));
+                GameArea.clear();
+            }
+        }
+    }
+    public void finish(){
+        this.GameStatus = "Terminado";
     }
 
     @Override

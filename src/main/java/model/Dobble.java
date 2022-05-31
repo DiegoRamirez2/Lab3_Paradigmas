@@ -67,13 +67,13 @@ public class Dobble extends ArrayList<Object> {
     public Card nthCard(Integer pos){
         return cardsSet.get(pos);
     }
-    public int IsDobble() {
+    public boolean IsDobble() {
         // Se verifica que todas las cartas tengan el mismo tamaño
         Card firstCard = cardsSet.get(0);
-        for (int i = 1; i < cardsSet.size(); i++) {
+        for (int i = 1; i < numCards(); i++) {
             Card nextCard = cardsSet.get(i);
             if (firstCard.size() != nextCard.size()) {
-                return 1;
+                return false;
             }
         }
         // Se verifica que las cartas tengan elementos distintos
@@ -81,23 +81,23 @@ public class Dobble extends ArrayList<Object> {
             for (int j = 0; j < iCard.size(); j++) {
                 for (int k = j + 1; k < iCard.size(); k++) {
                     if (iCard.get(k) == iCard.get(j)) {
-                        return 2;
+                        return false;
                     }
                 }
             }
         }
         // Se verifica que la intersección entre dos cartas sea 1
-        for (int i = 0; i < (cardsSet.size() - 1); i++) {
-            for(int j = i + 1; j < cardsSet.size(); j++){
+        for (int i = 0; i < (numCards() - 1); i++) {
+            for(int j = i + 1; j < numCards(); j++){
                 // Crea copias innecesarias y modifica desde la memoria dinámica
                 Card aux = cardsSet.get(i);
                 Card aux1 = new Card();
                 aux1.addAll(aux);
                 aux1.removeAll(cardsSet.get(j));
                 if (aux1.size() != (aux.size()-1)) {
-                    return 3;
+                    return false;
                 }}}
-        return 0;
+        return true;
     }
     public ArrayList<Card> missingCards(){
         Card firstCard = cardsSet.get(0);
@@ -108,6 +108,8 @@ public class Dobble extends ArrayList<Object> {
     public void DeleteCard(int i){
         cardsSet.remove(i);
     }
+
+
 
     @Override
     public String toString() {
