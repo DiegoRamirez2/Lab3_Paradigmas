@@ -1,5 +1,7 @@
 package model;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class Dobble extends ArrayList<Object> {
     public ArrayList<Card> cardsSet;
@@ -7,6 +9,7 @@ public class Dobble extends ArrayList<Object> {
 
     public Dobble(ArrayList<Object> elementos, Integer numE, Integer maxC) {
         this.cardsSet = setConstructor(elementos, numE, maxC);
+        Collections.shuffle(cardsSet);
         this.elements = elementos;
     }
     public ArrayList<Card> setConstructor(ArrayList<Object> elements, Integer numE, Integer maxC) {
@@ -58,10 +61,6 @@ public class Dobble extends ArrayList<Object> {
         return tamano * tamano + tamano + 1;
     }
     // requiredElements
-    public int requiredElements(Card carta) {
-        int tamano = carta.size() - 1;
-        return tamano * tamano + tamano + 1;
-    }
     // Obtiene la n-ésima (nth) carta desde el
     // conjunto de cartas partiendo desde 0 hasta (totalCartas-1).
     public Card nthCard(Integer pos){
@@ -109,11 +108,13 @@ public class Dobble extends ArrayList<Object> {
         cardsSet.remove(i);
     }
 
-
-
     @Override
     public String toString() {
-        return "El cardsSet es: " + cardsSet + ", y la lista de elementos es: " + elements;
+        StringBuilder cadena = new StringBuilder();
+        for(int i = 0; i < numCards(); i++){
+            cadena.append("Carta N° ").append(i + 1).append(": ").append(cardsSet.get(i)).append("\n");
+        }
+        return "El cardsSet es: \n" + cadena + "La lista de elementos usados es: " + elements + "\n";
     }
 
     public ArrayList<Card> getCardsSet() {

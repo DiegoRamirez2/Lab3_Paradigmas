@@ -15,9 +15,4 @@ public class Card extends ArrayList<Object> {
     public <T> T[] toArray(IntFunction<T[]> generator) {
         return (T[]) super.toArray(Object[]::new);
     }
-
 }
-
-
-
-
