@@ -1,9 +1,46 @@
 package model;
-
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Menu{
-    public static void main(String[] args){
+    public static void main(String[] args) {
+        String MainMenu = "### Bienvenido a este MARAVILLOSO juego llamado Dobble ###\n" +
+                "Escoja su opción:\n" + "1. Crear un juego\n" + "2. Registrar jugador\n" +
+                "3. Jugar\n" + "4. Visualizar estado completo del juego\n" +
+                "5. Salir\n" + "INTRODUZCA SU OPCIÓN: _\n";
+        String JugarMenu = "### Menu de Juego ###\n" + "Elija una opción:\n" +
+                "1. Agregar una carta\n" + "2. Realizar volteo inicial de cartas\n" +
+                "3. Pasar\n" + "4. Finalizar Juego\n" + "5. Salir\n" + "INTRODUZCA SU OPCIÓN: _\n";
+
+        int opcion;
+        do {
+            System.out.println(MainMenu);
+            Scanner entrada1 = new Scanner(System.in);
+            opcion = entrada1.nextInt();
+            if(opcion == 1) {
+                Scanner entrada2 = new Scanner(System.in);
+                System.out.println("¿Cuantos elementos desea por carta?: ");
+                int numE = entrada2.nextInt();
+                int requiredElements = (numE - 1) * (numE - 1) + (numE - 1) + 1;
+                ArrayList<Object> elementos = new ArrayList<>();
+                for (int i = 0; i < requiredElements; i++) {
+                    Scanner entrada3 = new Scanner(System.in);
+                    if (entrada3.getClass().getSimpleName() == "String") {
+                        String entrada3_aux = entrada3.nextLine();
+                    }
+                    if (entrada3.getClass().getSimpleName() == "Integer") {
+                        int entrada3_aux = entrada3.nextInt();
+                    }
+                    if (entrada3.getClass().getSimpleName() == "Float") {
+                        float entrada3_aux = entrada3.nextFloat();
+                    }
+                    if (entrada3.getClass().getSimpleName() == "Double") {
+                        double entrada3_aux = entrada3.nextDouble();
+                    }
+                }
+            }
+        } while (opcion != 5);
+
         ArrayList<Object> elementos = new ArrayList<>();
         elementos.add(1);
         elementos.add(2);
@@ -40,8 +77,9 @@ public class Menu{
         cardS1.add(aux);
         cardS1.add(aux1);
         Dobble newDobble = new Dobble(elementos, 3, -1);
-        //System.out.println(newDobble.nthCard(newDobble.cardsSet, 6));
         DobbleGame newDobbleGame = new DobbleGame(4, newDobble, "StackMode");
+        System.out.println(newDobbleGame);
+        /*
         Player P1 = new Player("Diego");
         newDobbleGame.Register(P1);
         Player P2 = new Player("Alejandro");
@@ -52,5 +90,8 @@ public class Menu{
         newDobbleGame.pass();
         System.out.println(newDobbleGame);
         newDobbleGame.pass();
+         */
     }
+
+
 }
