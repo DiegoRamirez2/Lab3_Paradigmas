@@ -136,6 +136,6 @@ public class DobbleGame {
                 "\nLista de Jugadores registrados: " + ListPlayers +
                 "\nModo de Juego: " + GameMode +
                 "\nEstado del Juego: " + GameStatus +
-                "\nArea de Juego: " + GameArea;
+                "\nArea de Juego: " + GameArea + "\n";
     }
 }

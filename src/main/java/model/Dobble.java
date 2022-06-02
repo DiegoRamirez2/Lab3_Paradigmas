@@ -1,9 +1,8 @@
 package model;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
-public class Dobble extends ArrayList<Object> {
+public class Dobble {
     public ArrayList<Card> cardsSet;
     public ArrayList<Object> elements;
 
@@ -63,9 +62,6 @@ public class Dobble extends ArrayList<Object> {
     // requiredElements
     // Obtiene la n-ésima (nth) carta desde el
     // conjunto de cartas partiendo desde 0 hasta (totalCartas-1).
-    public Card nthCard(Integer pos){
-        return cardsSet.get(pos);
-    }
     public boolean IsDobble() {
         // Se verifica que todas las cartas tengan el mismo tamaño
         Card firstCard = cardsSet.get(0);
@@ -103,9 +99,6 @@ public class Dobble extends ArrayList<Object> {
         ArrayList<Card> aux = setConstructor(elements, firstCard.size(), -1);
         aux.removeAll(cardsSet);
         return aux;
-    }
-    public void DeleteCard(int i){
-        cardsSet.remove(i);
     }
 
     @Override
