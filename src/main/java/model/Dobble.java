@@ -1,6 +1,7 @@
 package model;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Objects;
 
 public class Dobble {
     public ArrayList<Card> cardsSet;
@@ -12,43 +13,48 @@ public class Dobble {
         this.elements = elementos;
     }
     public ArrayList<Card> setConstructor(ArrayList<Object> elements, Integer numE, Integer maxC) {
-        int n = numE - 1;
-        Card newCard = new Card();
-        ArrayList<Card> Cartas = new ArrayList<>();
-        for (int i = 1; i <=n + 1; i++) {
-            newCard.add(elements.get(i-1));
-        }
-        Cartas.add(newCard);
-        for (int j = 1; j<=n; j++) {
-            Card newCard2 = new Card();
-            newCard2.add(elements.get(0));
-            for (int k = 1; k <=n; k++) {
-                int valor = n * j + (k + 1);
-                newCard2.add(elements.get(valor-1));
+        if(requiredElements(numE) > elements.size() || maxC > requiredElements(numE)){
+            return null;
+        }else{
+            int n = numE - 1;
+            Card newCard = new Card();
+            ArrayList<Card> Cartas = new ArrayList<>();
+            for (int i = 1; i <=n + 1; i++) {
+                newCard.add(elements.get(i-1));
             }
-            Cartas.add(newCard2);
-        }
-        for (int i = 1; i <= n; i++) {
-            for (int j = 1; j <= n; j++) {
-                Card newCard3 = new Card();
-                newCard3.add(i + 1);
-                for (int k = 1; k <= n; k++) {
-                    int valor = n + 2 + n * (k - 1) + (((i - 1) * (k - 1) + j - 1) % n);
-                    newCard3.add(elements.get(valor-1));
+            Cartas.add(newCard);
+            for (int j = 1; j<=n; j++) {
+                Card newCard2 = new Card();
+                newCard2.add(elements.get(0));
+                for (int k = 1; k <=n; k++) {
+                    int valor = n * j + (k + 1);
+                    newCard2.add(elements.get(valor-1));
                 }
-                Cartas.add(newCard3);
+                Cartas.add(newCard2);
+            }
+            for (int i = 1; i <= n; i++) {
+                for (int j = 1; j <= n; j++) {
+                    Card newCard3 = new Card();
+                    newCard3.add(i + 1);
+                    for (int k = 1; k <= n; k++) {
+                        int valor = n + 2 + n * (k - 1) + (((i - 1) * (k - 1) + j - 1) % n);
+                        newCard3.add(elements.get(valor-1));
+                    }
+                    Cartas.add(newCard3);
+                }
+            }
+            if (maxC <= 0){
+                return Cartas;
+            }
+            else{
+                ArrayList<Card> subCartas = new ArrayList<>();
+                for(int i = 1; i <= maxC; i++){
+                    subCartas.add(Cartas.get(i));
+                }
+                return subCartas;
             }
         }
-        if (maxC <= 0 || maxC > findTotalCards(newCard)){
-            return Cartas;
-        }
-        else{
-            ArrayList<Card> subCartas = new ArrayList<>();
-            for(int i = 1; i <= maxC; i++){
-                subCartas.add(Cartas.get(i));
-            }
-            return subCartas;
-        }
+
     }
     // Permite determinar la cantidad de cartas en el set
     public int numCards(){
@@ -60,6 +66,9 @@ public class Dobble {
         return tamano * tamano + tamano + 1;
     }
     // requiredElements
+    public int requiredElements(Integer numE){
+        return (numE - 1) * (numE - 1) + (numE - 1) + 1;
+    }
     // Obtiene la n-ésima (nth) carta desde el
     // conjunto de cartas partiendo desde 0 hasta (totalCartas-1).
     public boolean IsDobble() {
@@ -115,5 +124,9 @@ public class Dobble {
     }
     public ArrayList<Object> getElements() {
         return elements;
+    }
+
+    public void setCardsSet(ArrayList<Card> cardsSet) {
+        this.cardsSet = cardsSet;
     }
 }
