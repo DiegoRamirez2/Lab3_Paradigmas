@@ -1,60 +1,54 @@
 package model;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Objects;
 
 public class Dobble {
     public ArrayList<Card> cardsSet;
-    public ArrayList<Object> elements;
+    public ArrayList<String> elements;
 
-    public Dobble(ArrayList<Object> elementos, Integer numE, Integer maxC) {
+    public Dobble(ArrayList<String> elementos, Integer numE, Integer maxC) {
         this.cardsSet = setConstructor(elementos, numE, maxC);
-        Collections.shuffle(cardsSet);
         this.elements = elementos;
+        Collections.shuffle(cardsSet);
     }
-    public ArrayList<Card> setConstructor(ArrayList<Object> elements, Integer numE, Integer maxC) {
-        if(requiredElements(numE) > elements.size() || maxC > requiredElements(numE)){
-            return null;
-        }else{
-            int n = numE - 1;
-            Card newCard = new Card();
-            ArrayList<Card> Cartas = new ArrayList<>();
-            for (int i = 1; i <=n + 1; i++) {
-                newCard.add(elements.get(i-1));
+    public ArrayList<Card> setConstructor(ArrayList<String> elements, Integer numE, Integer maxC) {
+        int n = numE - 1;
+        Card newCard = new Card();
+        ArrayList<Card> Cartas = new ArrayList<>();
+        for (int i = 1; i <=n + 1; i++) {
+            newCard.add(elements.get(i-1));
+        }
+        Cartas.add(newCard);
+        for (int j = 1; j<=n; j++) {
+            Card newCard2 = new Card();
+            newCard2.add(elements.get(0));
+            for (int k = 1; k <=n; k++) {
+                int valor = n * j + (k + 1);
+                newCard2.add(elements.get(valor-1));
             }
-            Cartas.add(newCard);
-            for (int j = 1; j<=n; j++) {
-                Card newCard2 = new Card();
-                newCard2.add(elements.get(0));
-                for (int k = 1; k <=n; k++) {
-                    int valor = n * j + (k + 1);
-                    newCard2.add(elements.get(valor-1));
+            Cartas.add(newCard2);
+        }
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= n; j++) {
+                Card newCard3 = new Card();
+                newCard3.add(elements.get(i));
+                for (int k = 1; k <= n; k++) {
+                    int valor = n + 2 + n * (k - 1) + (((i - 1) * (k - 1) + j - 1) % n);
+                    newCard3.add(elements.get(valor-1));
                 }
-                Cartas.add(newCard2);
-            }
-            for (int i = 1; i <= n; i++) {
-                for (int j = 1; j <= n; j++) {
-                    Card newCard3 = new Card();
-                    newCard3.add(i + 1);
-                    for (int k = 1; k <= n; k++) {
-                        int valor = n + 2 + n * (k - 1) + (((i - 1) * (k - 1) + j - 1) % n);
-                        newCard3.add(elements.get(valor-1));
-                    }
-                    Cartas.add(newCard3);
-                }
-            }
-            if (maxC <= 0){
-                return Cartas;
-            }
-            else{
-                ArrayList<Card> subCartas = new ArrayList<>();
-                for(int i = 1; i <= maxC; i++){
-                    subCartas.add(Cartas.get(i));
-                }
-                return subCartas;
+                Cartas.add(newCard3);
             }
         }
-
+        if (maxC <= 0){
+            return Cartas;
+        }
+        else{
+            ArrayList<Card> subCartas = new ArrayList<>();
+            for(int i = 0; i < maxC; i++){
+                subCartas.add(Cartas.get(i));
+            }
+            return subCartas;
+        }
     }
     // Permite determinar la cantidad de cartas en el set
     public int numCards(){
@@ -114,7 +108,7 @@ public class Dobble {
     public String toString() {
         StringBuilder cadena = new StringBuilder();
         for(int i = 0; i < numCards(); i++){
-            cadena.append("Carta N° ").append(i + 1).append(": ").append(cardsSet.get(i)).append("\n");
+            cadena.append("Carta N° " + (i + 1) + ": " + cardsSet.get(i)).append("\n");
         }
         return "El cardsSet es: \n" + cadena + "La lista de elementos usados es: " + elements + "\n";
     }
@@ -122,7 +116,7 @@ public class Dobble {
     public ArrayList<Card> getCardsSet() {
         return cardsSet;
     }
-    public ArrayList<Object> getElements() {
+    public ArrayList<String> getElements() {
         return elements;
     }
 

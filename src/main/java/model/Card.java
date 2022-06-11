@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 
 public class Card extends ArrayList<Object> {
-    public ArrayList<Object> carta;
+    public ArrayList<String> carta;
 
     // Métodos
     // Constructor
@@ -11,10 +11,10 @@ public class Card extends ArrayList<Object> {
         this.carta = new ArrayList<>();
     }
 
-    public ArrayList<Object> getCarta() {
+    public ArrayList<String> getCarta() {
         return carta;
     }
-    public void setCarta(ArrayList<Object> carta) {
+    public void setCarta(ArrayList<String> carta) {
         this.carta = carta;
     }
     @Override

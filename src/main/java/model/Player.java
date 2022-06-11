@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
-public class Player {
+public class Player implements Comparable<Player> {
     public String Username;
     public ArrayList<Card> Cartas;
 
@@ -11,12 +11,15 @@ public class Player {
         this.Cartas = new ArrayList<>();
     }
     public int ObtainPoint(){
-        return Cartas.size() / 2;
+        return Cartas.size();
     }
 
     @Override
     public String toString() {
-        return "[" + Username + ", " + Cartas + "]";
+        return Username + " " + Cartas;
+    }
+    public String PlayerAndPoints(){
+        return Username + ": " + ObtainPoint() + " puntos";
     }
     public String getUsername() {
         return Username;
@@ -42,10 +45,19 @@ public class Player {
             return false;
         }
         Player jugador = (Player) P1;
-        return jugador.getUsername().equals(this.Username) &&
-                jugador.getCartas().equals(this.Cartas);
+        return jugador.getUsername().equals(this.Username);
 
     }
 
+    @Override
+    public int compareTo(Player Jugador) {
+        if(ObtainPoint() > Jugador.ObtainPoint()){
+            return 1;
+        } else if(ObtainPoint() == Jugador.ObtainPoint()){
+            return 0;
+        } else{
+            return -1;
+        }
+    }
 }
 
