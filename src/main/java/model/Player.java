@@ -1,5 +1,4 @@
 package model;
-
 import java.util.ArrayList;
 
 public class Player implements Comparable<Player> {
@@ -24,15 +23,6 @@ public class Player implements Comparable<Player> {
     public String getUsername() {
         return Username;
     }
-    public void setUsername(String username) {
-        Username = username;
-    }
-    public ArrayList<Card> getCartas() {
-        return Cartas;
-    }
-    public void setCartas(ArrayList<Card> cartas) {
-        Cartas = cartas;
-    }
     @Override
     public boolean equals(Object P1) {
         if(this == P1){
@@ -51,13 +41,7 @@ public class Player implements Comparable<Player> {
 
     @Override
     public int compareTo(Player Jugador) {
-        if(ObtainPoint() > Jugador.ObtainPoint()){
-            return 1;
-        } else if(ObtainPoint() == Jugador.ObtainPoint()){
-            return 0;
-        } else{
-            return -1;
-        }
+        return Integer.compare(Jugador.ObtainPoint(), ObtainPoint());
     }
 }
 

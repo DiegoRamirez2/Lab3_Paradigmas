@@ -11,20 +11,21 @@ public class Dobble {
         this.elements = elementos;
         Collections.shuffle(cardsSet);
     }
+
     public ArrayList<Card> setConstructor(ArrayList<String> elements, Integer numE, Integer maxC) {
         int n = numE - 1;
         Card newCard = new Card();
         ArrayList<Card> Cartas = new ArrayList<>();
-        for (int i = 1; i <=n + 1; i++) {
-            newCard.add(elements.get(i-1));
+        for (int i = 1; i <= n + 1; i++) {
+            newCard.add(elements.get(i - 1));
         }
         Cartas.add(newCard);
-        for (int j = 1; j<=n; j++) {
+        for (int j = 1; j <= n; j++) {
             Card newCard2 = new Card();
             newCard2.add(elements.get(0));
-            for (int k = 1; k <=n; k++) {
+            for (int k = 1; k <= n; k++) {
                 int valor = n * j + (k + 1);
-                newCard2.add(elements.get(valor-1));
+                newCard2.add(elements.get(valor - 1));
             }
             Cartas.add(newCard2);
         }
@@ -34,34 +35,25 @@ public class Dobble {
                 newCard3.add(elements.get(i));
                 for (int k = 1; k <= n; k++) {
                     int valor = n + 2 + n * (k - 1) + (((i - 1) * (k - 1) + j - 1) % n);
-                    newCard3.add(elements.get(valor-1));
+                    newCard3.add(elements.get(valor - 1));
                 }
                 Cartas.add(newCard3);
             }
         }
-        if (maxC <= 0){
+        if (maxC <= 0) {
             return Cartas;
-        }
-        else{
+        } else {
             ArrayList<Card> subCartas = new ArrayList<>();
-            for(int i = 0; i < maxC; i++){
+            for (int i = 0; i < maxC; i++) {
                 subCartas.add(Cartas.get(i));
             }
             return subCartas;
         }
     }
+
     // Permite determinar la cantidad de cartas en el set
-    public int numCards(){
+    public int numCards() {
         return cardsSet.size();
-    }
-    // findTotalCards
-    public int findTotalCards(Card carta) {
-        int tamano = carta.size() - 1;
-        return tamano * tamano + tamano + 1;
-    }
-    // requiredElements
-    public int requiredElements(Integer numE){
-        return (numE - 1) * (numE - 1) + (numE - 1) + 1;
     }
     // Obtiene la n-ésima (nth) carta desde el
     // conjunto de cartas partiendo desde 0 hasta (totalCartas-1).
@@ -86,41 +78,36 @@ public class Dobble {
         }
         // Se verifica que la intersección entre dos cartas sea 1
         for (int i = 0; i < (numCards() - 1); i++) {
-            for(int j = i + 1; j < numCards(); j++){
+            for (int j = i + 1; j < numCards(); j++) {
                 // Crea copias innecesarias y modifica desde la memoria dinámica
                 Card aux = cardsSet.get(i);
                 Card aux1 = new Card();
                 aux1.addAll(aux);
                 aux1.removeAll(cardsSet.get(j));
-                if (aux1.size() != (aux.size()-1)) {
+                if (aux1.size() != (aux.size() - 1)) {
                     return false;
-                }}}
+                }
+            }
+        }
         return true;
     }
-    public ArrayList<Card> missingCards(){
+
+    public ArrayList<Card> missingCards() {
+        // revisar esta wea
         Card firstCard = cardsSet.get(0);
         ArrayList<Card> aux = setConstructor(elements, firstCard.size(), -1);
         aux.removeAll(cardsSet);
         return aux;
     }
-
+    public void AddCard(Integer Pos){
+        cardsSet.add(missingCards().get(Pos));
+    }
     @Override
     public String toString() {
         StringBuilder cadena = new StringBuilder();
-        for(int i = 0; i < numCards(); i++){
-            cadena.append("Carta N° " + (i + 1) + ": " + cardsSet.get(i)).append("\n");
+        for (int i = 0; i < numCards(); i++) {
+            cadena.append("Carta N° ").append(i + 1).append(": ").append(cardsSet.get(i)).append("\n");
         }
         return "El cardsSet es: \n" + cadena + "La lista de elementos usados es: " + elements + "\n";
-    }
-
-    public ArrayList<Card> getCardsSet() {
-        return cardsSet;
-    }
-    public ArrayList<String> getElements() {
-        return elements;
-    }
-
-    public void setCardsSet(ArrayList<Card> cardsSet) {
-        this.cardsSet = cardsSet;
     }
 }
