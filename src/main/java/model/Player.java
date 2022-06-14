@@ -1,7 +1,9 @@
 package model;
+import interfaces.PlayerInterface;
+
 import java.util.ArrayList;
 
-public class Player implements Comparable<Player> {
+public class Player implements Comparable<Player>, PlayerInterface {
     public String Username;
     public ArrayList<Card> Cartas;
 
@@ -23,6 +25,7 @@ public class Player implements Comparable<Player> {
     public String getUsername() {
         return Username;
     }
+
     @Override
     public boolean equals(Object P1) {
         if(this == P1){
@@ -38,10 +41,8 @@ public class Player implements Comparable<Player> {
         return jugador.getUsername().equals(this.Username);
 
     }
-
     @Override
     public int compareTo(Player Jugador) {
         return Integer.compare(Jugador.ObtainPoint(), ObtainPoint());
     }
 }
-

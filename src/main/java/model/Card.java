@@ -1,10 +1,11 @@
 package model;
+import interfaces.CardInterface;
+
 import java.util.ArrayList;
 
 
-public class Card extends ArrayList<Object> {
+public class Card extends ArrayList<Object> implements CardInterface {
     public ArrayList<String> carta;
-
     // Métodos
     // Constructor
     public Card() {
@@ -14,8 +15,9 @@ public class Card extends ArrayList<Object> {
     public ArrayList<String> getCarta() {
         return carta;
     }
-    public void setCarta(ArrayList<String> carta) {
-        this.carta = carta;
+    @Override
+    public String toString() {
+        return super.toString();
     }
     @Override
     public boolean equals(Object C1){

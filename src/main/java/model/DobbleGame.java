@@ -1,9 +1,11 @@
 package model;
+import interfaces.DobbleGameInterface;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
 
-public class DobbleGame {
+public class DobbleGame implements DobbleGameInterface {
     public Dobble DobbleSet;
     public Integer NumPlayers;
     public ArrayList<Player> ListPlayers;
@@ -71,7 +73,7 @@ public class DobbleGame {
         }
     }
 
-    public void spotIt(Object Elemento) {
+    public void spotIt(String Elemento) {
         Card aux = new Card();
         aux.addAll(GameArea.get(0));
         aux.retainAll(GameArea.get(1));
@@ -104,17 +106,6 @@ public class DobbleGame {
         ListPlayers.add(player);
     }
 
-    @Override
-    public String toString() {
-        return
-                DobbleSet +
-                        "Número de jugadores: " + NumPlayers +
-                        "\nLista de Jugadores registrados: " + ListPlayers +
-                        "\nModo de Juego: " + GameMode +
-                        "\nEstado del Juego: " + GameStatus +
-                        "\nArea de Juego: " + GameArea + "\n";
-    }
-
     public String Puntajes() {
         StringBuilder cadena = new StringBuilder();
         for (Player listPlayer : ListPlayers) {
@@ -137,5 +128,40 @@ public class DobbleGame {
             return "### Ganador ###\n" + cadena;
         }
         return "No existen jugadores en el juego";
+    }
+    public Dobble getDobbleSet() {
+        return DobbleSet;
+    }
+    public ArrayList<Player> getListPlayers() {
+        return ListPlayers;
+    }
+    public String getGameMode() {
+        return GameMode;
+    }
+    @Override
+    public String toString() {
+        return
+                DobbleSet +
+                        "Número de jugadores: " + NumPlayers +
+                        "\nLista de Jugadores registrados: " + ListPlayers +
+                        "\nModo de Juego: " + GameMode +
+                        "\nEstado del Juego: " + GameStatus +
+                        "\nArea de Juego: " + GameArea + "\n";
+    }
+    @Override
+    public boolean equals(Object DBG1){
+        if(this == DBG1){
+            return true;
+        }
+        if(DBG1 == null){
+            return false;
+        }
+        if(DBG1.getClass() != DobbleGame.class){
+            return false;
+        }
+        DobbleGame newDBG = (DobbleGame) DBG1;
+        return newDBG.getDobbleSet().equals(this.DobbleSet)
+                && newDBG.getListPlayers().equals(this.ListPlayers)
+                && newDBG.getGameMode().equals(this.GameMode);
     }
 }

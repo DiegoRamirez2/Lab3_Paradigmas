@@ -189,20 +189,21 @@ public class Menu {
                     }
                     if (Opcion_jugar == 4) {
                         ArrayList<Card> Aux_Missing = Game.DobbleSet.missingCards();
-                        System.out.println(Game.DobbleSet.missingCards());
                         if (Aux_Missing.size() == 0) {
                             System.out.println("No existen cartas validas faltantes\n");
                         } else {
+                            System.out.println("Puede agregar las siguientes cartas al mazo:");
                             for (int i = 0; i < Aux_Missing.size(); i++) {
                                 System.out.println("Carta N° " + (i + 1) + ": "
-                                        + Aux_Missing.get(i) + "\n");
+                                        + Aux_Missing.get(i));
                             }
+                            System.out.println("Ingrese el número de carta que quiere agregar");
                             Scanner pos_card = new Scanner(System.in);
                             int card_m = pos_card.nextInt();
                             if (card_m > Aux_Missing.size() || card_m < 0) {
                                 System.out.println("Ha ingresado un número de carta no válido");
                             } else {
-                                Game.DobbleSet.AddCard(card_m);
+                                Game.DobbleSet.AddCard(card_m - 1);
                             }
                         }
                     }
@@ -233,4 +234,3 @@ public class Menu {
         Game = game;
     }
 }
-

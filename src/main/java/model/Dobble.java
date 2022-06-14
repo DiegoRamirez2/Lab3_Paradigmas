@@ -1,8 +1,10 @@
 package model;
+import interfaces.DobbleInterface;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Dobble {
+public class Dobble implements DobbleInterface {
     public ArrayList<Card> cardsSet;
     public ArrayList<String> elements;
 
@@ -55,6 +57,7 @@ public class Dobble {
     public int numCards() {
         return cardsSet.size();
     }
+
     // Obtiene la n-ésima (nth) carta desde el
     // conjunto de cartas partiendo desde 0 hasta (totalCartas-1).
     public boolean IsDobble() {
@@ -93,14 +96,23 @@ public class Dobble {
     }
 
     public ArrayList<Card> missingCards() {
-        // revisar esta wea
         Card firstCard = cardsSet.get(0);
         ArrayList<Card> aux = setConstructor(elements, firstCard.size(), -1);
-        aux.removeAll(cardsSet);
+        for (Card objects : cardsSet) {
+            aux.remove(objects);
+        }
         return aux;
     }
-    public void AddCard(Integer Pos){
+
+    public void AddCard(Integer Pos) {
         cardsSet.add(missingCards().get(Pos));
+    }
+    public ArrayList<Card> getCardsSet() {
+        return cardsSet;
+    }
+
+    public ArrayList<String> getElements() {
+        return elements;
     }
     @Override
     public String toString() {
@@ -109,5 +121,21 @@ public class Dobble {
             cadena.append("Carta N° ").append(i + 1).append(": ").append(cardsSet.get(i)).append("\n");
         }
         return "El cardsSet es: \n" + cadena + "La lista de elementos usados es: " + elements + "\n";
+    }
+
+    @Override
+    public boolean equals(Object DB1) {
+        if (this == DB1) {
+            return true;
+        }
+        if (DB1 == null) {
+            return false;
+        }
+        if (DB1.getClass() != Dobble.class) {
+            return false;
+        }
+        Dobble newDobble = (Dobble) DB1;
+        return newDobble.getCardsSet().equals(this.cardsSet)
+                && newDobble.getElements().equals(this.elements);
     }
 }
