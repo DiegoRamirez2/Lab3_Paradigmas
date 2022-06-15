@@ -12,8 +12,8 @@ public class Card extends ArrayList<Object> implements CardInterface {
         this.carta = new ArrayList<>();
     }
 
-    public ArrayList<String> getCarta() {
-        return carta;
+    public Card getCarta() {
+        return this;
     }
     @Override
     public String toString() {
@@ -29,8 +29,12 @@ public class Card extends ArrayList<Object> implements CardInterface {
         }
         if(C1.getClass() != Card.class){
             return false;
+        } else {
+            Card aux = (Card) C1;
+            Card aux2 = new Card();
+            aux2.addAll(this);
+            aux2.removeAll(aux);
+            return aux2.size() == 0;
         }
-        Card aux = (Card) C1;
-        return aux.getCarta().equals(this.carta);
     }
 }

@@ -42,7 +42,6 @@ public class Player implements Comparable<Player>, PlayerInterface {
 
     }
     @Override
-    public int compareTo(Player Jugador) {
-        return Integer.compare(Jugador.ObtainPoint(), ObtainPoint());
+    public int compareTo(Player Jugador) { return Integer.compare(Jugador.ObtainPoint(), ObtainPoint());
     }
 }

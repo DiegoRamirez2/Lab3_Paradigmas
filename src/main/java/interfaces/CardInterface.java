@@ -1,9 +1,9 @@
 package interfaces;
 
-import java.util.ArrayList;
+import model.Card;
 
 public interface CardInterface {
-    ArrayList<String> getCarta();
+    Card getCarta();
     String toString();
     boolean equals(Object o);
 

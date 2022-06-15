@@ -14,8 +14,6 @@ public class Menu {
     static String PlayOptions = "Escoja su opción: \n" + "1. Voltear cartas del mazo\n" + "2. Pasar turno\n" +
             "3. ¡Spot It! \n" + "4. Agregar cartas al mazo\n" + "5. Ver tabla de puntajes\n"+ "6. Finalizar juego\n" + "INTRODUZCA SU OPCIÓN: ";
     public DobbleGame Game;
-
-
     public Menu(){
         this.Game = null;
     }
@@ -189,6 +187,8 @@ public class Menu {
                     }
                     if (Opcion_jugar == 4) {
                         ArrayList<Card> Aux_Missing = Game.DobbleSet.missingCards();
+                        System.out.println("Este es el Aux_Missing = " + Aux_Missing);
+                        Opcion4();
                         if (Aux_Missing.size() == 0) {
                             System.out.println("No existen cartas validas faltantes\n");
                         } else {

@@ -37,7 +37,7 @@ public class DobbleGame implements DobbleGameInterface {
     public void Register(Player User) {
         if (ListPlayers.size() != 0) {
             for (Player aux : ListPlayers) {
-                if (User.Username.equals(aux.Username)) {
+                if (User.equals(aux)) {
                     return;
                 }
             }

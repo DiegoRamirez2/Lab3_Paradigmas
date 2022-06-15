@@ -98,9 +98,7 @@ public class Dobble implements DobbleInterface {
     public ArrayList<Card> missingCards() {
         Card firstCard = cardsSet.get(0);
         ArrayList<Card> aux = setConstructor(elements, firstCard.size(), -1);
-        for (Card objects : cardsSet) {
-            aux.remove(objects);
-        }
+        aux.removeAll(cardsSet);
         return aux;
     }
 
