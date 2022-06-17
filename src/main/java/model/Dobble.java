@@ -1,9 +1,14 @@
 package model;
-import interfaces.DobbleInterface;
 
+import interfaces.DobbleInterface;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * Clase que simula un Dobble, que contiene un ArrayList<Card> y un ArrayList<String>.
+ * @version 2022.16.06
+ * @author Diego Ramírez Vivas
+ */
 public class Dobble implements DobbleInterface {
     public ArrayList<Card> cardsSet;
     public ArrayList<String> elements;
@@ -14,6 +19,13 @@ public class Dobble implements DobbleInterface {
         Collections.shuffle(cardsSet);
     }
 
+    /**
+     * Genera la lista de cartas (ArrayList<Card>) de un Dobble
+     * @param elements (ArrayList<String>). La lista de elementos que tendran las cartas
+     * @param numE (Integer). El número de elementos por carta
+     * @param maxC (Integer). El número de cartas del mazo
+     * @return ArrayList<Card> Si se genera la lista de cartas del Dobble
+     */
     public ArrayList<Card> setConstructor(ArrayList<String> elements, Integer numE, Integer maxC) {
         int n = numE - 1;
         Card newCard = new Card();
@@ -53,17 +65,14 @@ public class Dobble implements DobbleInterface {
         }
     }
 
-    // Permite determinar la cantidad de cartas en el set
-    public int numCards() {
-        return cardsSet.size();
-    }
-
-    // Obtiene la n-ésima (nth) carta desde el
-    // conjunto de cartas partiendo desde 0 hasta (totalCartas-1).
+    /**
+     * Verifica si Dobble posee un cardsSet valido
+     * @return Boolean Si se verifica el cardsSet de Dobble
+     */
     public boolean IsDobble() {
         // Se verifica que todas las cartas tengan el mismo tamaño
         Card firstCard = cardsSet.get(0);
-        for (int i = 1; i < numCards(); i++) {
+        for (int i = 1; i < cardsSet.size(); i++) {
             Card nextCard = cardsSet.get(i);
             if (firstCard.size() != nextCard.size()) {
                 return false;
@@ -80,8 +89,8 @@ public class Dobble implements DobbleInterface {
             }
         }
         // Se verifica que la intersección entre dos cartas sea 1
-        for (int i = 0; i < (numCards() - 1); i++) {
-            for (int j = i + 1; j < numCards(); j++) {
+        for (int i = 0; i < (cardsSet.size() - 1); i++) {
+            for (int j = i + 1; j < cardsSet.size(); j++) {
                 // Crea copias innecesarias y modifica desde la memoria dinámica
                 Card aux = cardsSet.get(i);
                 Card aux1 = new Card();
@@ -95,6 +104,10 @@ public class Dobble implements DobbleInterface {
         return true;
     }
 
+    /**
+     * Obtiene las cartas faltantes (ArrayList<Card>) de un Dobble
+     * @return ArrayList<Card> Si se obtienen las cartas faltantes
+     */
     public ArrayList<Card> missingCards() {
         Card firstCard = cardsSet.get(0);
         ArrayList<Card> aux = setConstructor(elements, firstCard.size(), -1);
@@ -102,25 +115,48 @@ public class Dobble implements DobbleInterface {
         return aux;
     }
 
+    /**
+     * Agrega una carta (Card) de las cartas faltantes al cardsSet de un Dobble
+     * @param Pos (Integer). Número de carta que se quiere agregar de las cartas faltantes
+     */
     public void AddCard(Integer Pos) {
         cardsSet.add(missingCards().get(Pos));
     }
+
+    /**
+     * Obtiene el cardsSet (ArrayList<Card>) de un Dobble
+     * @return ArrayList<Card> Si se obtiene el cardsSet de un Dobble
+     */
     public ArrayList<Card> getCardsSet() {
         return cardsSet;
     }
 
+    /**
+     * Obtiene la lista de elementos (ArrayList<String>) de un Dobble
+     * @return ArrayList<String> Si se obtiene el elements de un Dobble
+     */
     public ArrayList<String> getElements() {
         return elements;
     }
+
+    /**
+     * Convierte todo el contenido de un Dobble a un String
+     * @return String Si se transforma todo el contenido de un Dobble a String
+     */
     @Override
     public String toString() {
         StringBuilder cadena = new StringBuilder();
-        for (int i = 0; i < numCards(); i++) {
+        for (int i = 0; i < cardsSet.size(); i++) {
             cadena.append("Carta N° ").append(i + 1).append(": ").append(cardsSet.get(i)).append("\n");
         }
         return "El cardsSet es: \n" + cadena + "La lista de elementos usados es: " + elements + "\n";
     }
 
+    /**
+     * Compara este Dobble con otro para verificar que sean iguales
+     * @param DB1 Un dobble (Dobble) cualquiera
+     * @return Boolean Si se comparan los dos Dobble
+     */
     @Override
     public boolean equals(Object DB1) {
         if (this == DB1) {

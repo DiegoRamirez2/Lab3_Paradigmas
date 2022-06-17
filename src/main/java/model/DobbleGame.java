@@ -1,10 +1,15 @@
 package model;
-import interfaces.DobbleGameInterface;
 
+import interfaces.DobbleGameInterface;
 import java.util.ArrayList;
 import java.util.Collections;
 
-
+/**
+ * Clase que simula un DobbleGame, el cual almacena un Dobble, un Integer, dos String,
+ * una lista de cartas y una lista de jugadores.
+ * @version 2022.16.06
+ * @author Diego Ramírez Vivas
+ */
 public class DobbleGame implements DobbleGameInterface {
     public Dobble DobbleSet;
     public Integer NumPlayers;
@@ -22,10 +27,17 @@ public class DobbleGame implements DobbleGameInterface {
         this.GameArea = new ArrayList<>();
     }
 
+    /**
+     * Obtiene el estado de juego (String) del DobbleGame
+     * @return String Si se obtiene el estado del DobbleGame
+     */
     public String Status() {
         return GameStatus;
     }
 
+    /**
+     * Retira las dos primeras cartas del set de Cartas y las agrega al área de juego
+     */
     public void StackMode() {
         for (int i = 0; i < 2; i++) {
             Card aux = DobbleSet.cardsSet.get(0);
@@ -34,6 +46,11 @@ public class DobbleGame implements DobbleGameInterface {
         }
     }
 
+    /**
+     * Registra a un jugador (Player) dentro del DobbleGame si no se
+     * encuentra ya registrado, o no se excede el máximo de jugadores
+     * @param User Un jugador (Player) cualquiera
+     */
     public void Register(Player User) {
         if (ListPlayers.size() != 0) {
             for (Player aux : ListPlayers) {
@@ -47,10 +64,19 @@ public class DobbleGame implements DobbleGameInterface {
         }
     }
 
+    /**
+     * Obtiene el jugador al que le corresponde jugar
+     * @return Player Si se obtiene el jugador al que le corresponde jugar
+     */
     public Player whoseTurnsIsIt() {
         return ListPlayers.get(0);
     }
 
+    /**
+     * Obtiene los puntos de un nombre de usuario dado
+     * @param UserName (String). El nombre de usuario de un jugador registrado
+     * @return (Integer) Si se obtienen los puntos del nombre de usuario dado
+     */
     public int Score(String UserName) {
         if (ListPlayers.size() != 0) {
             for (Player aux : ListPlayers) {
@@ -62,17 +88,30 @@ public class DobbleGame implements DobbleGameInterface {
         return 0;
     }
 
+    /**
+     * Agrega las cartas que se encuentren en el área de juego
+     * al jugador que le corresponde jugar
+     */
     public void AppendPoints() {
         Player aux = ListPlayers.get(0);
         aux.Cartas.addAll(GameArea);
         GameArea.clear();
     }
+
+    /**
+     * Efectua el volteo inicial de las dos primeras cartas del mazo
+     */
     public void Null() {
         if (GameMode.equalsIgnoreCase("STACKMODE")) {
             StackMode();
         }
     }
 
+    /**
+     * Efectua la intersección entre las dos cartas del área de juego
+     * y compara el resultado con el elemento ingresado por el jugador
+     * @param Elemento (String). Un elemento cualquiera que el jugador cree que es correcto
+     */
     public void spotIt(String Elemento) {
         Card aux = new Card();
         aux.addAll(GameArea.get(0));
@@ -84,6 +123,11 @@ public class DobbleGame implements DobbleGameInterface {
         nextTurn();
     }
 
+    /**
+     * Efectua el pase de turno del juego, otorgandole el turno
+     * de juego al siguiente jugador de la lista de jugadores
+     * y devuelve las cartas del Área de juego al Set de cartas
+     */
     public void pass() {
         if (GameArea.size() < 2) {
             nextTurn();
@@ -95,17 +139,31 @@ public class DobbleGame implements DobbleGameInterface {
         }
     }
 
+    /**
+     * Cambia el estado de juego de "Jugando" a "Terminado",
+     * restringiendo al Jugador (Player) para que no pueda
+     * efectuar más jugadas en el DobbleGame
+     */
     public void finish() {
         this.GameStatus = "Terminado";
         System.out.println(Resultado());
     }
 
+    /**
+     * Efectua el pase de turno de jugadores, y le otorga
+     * el turno al siguiente jugador
+     */
     public void nextTurn() {
         Player player = ListPlayers.get(0);
         ListPlayers.remove(0);
         ListPlayers.add(player);
     }
 
+    /**
+     * Convierte la lista de jugadores (ArrayList<Player>) de un Dobble
+     * en un String mostrando los puntos de cada Player
+     * @return String Si se convierte la lista de jugadores de un Dobble
+     */
     public String Puntajes() {
         StringBuilder cadena = new StringBuilder();
         for (Player listPlayer : ListPlayers) {
@@ -117,6 +175,11 @@ public class DobbleGame implements DobbleGameInterface {
         return "### Lista de puntajes ###\n" + cadena;
     }
 
+    /**
+     * Ordena la lista de jugadores dado sus puntajes y los convierte
+     * a String para mostrar el ganador y los perdedores
+     * @return String Si se convierte la lista ordenada de jugadores a String
+     */
     public String Resultado() {
         if (ListPlayers.size() > 0) {
             Collections.sort(ListPlayers);
@@ -129,15 +192,35 @@ public class DobbleGame implements DobbleGameInterface {
         }
         return "No existen jugadores en el juego";
     }
+
+    /**
+     * Obtiene el DobbleSet (Dobble) de un DobbleGame
+     * @return Dobble Si se obtiene el DobbleSet de un DobbleGame
+     */
     public Dobble getDobbleSet() {
         return DobbleSet;
     }
+
+    /**
+     * Obtiene la lista de jugadores (ArrayList<Player>) de un DobbleGame
+     * @return ArrayList<Player> Si se obtiene la lista de jugadores de un DobbleGame
+     */
     public ArrayList<Player> getListPlayers() {
         return ListPlayers;
     }
+
+    /**
+     * Obtiene el modo de juego de un DobbleGame
+     * @return String Si se obtiene el modo de juego de un DobbleGame
+     */
     public String getGameMode() {
         return GameMode;
     }
+
+    /**
+     * Convierte todo el contenido de un DobbleGame a String
+     * @return String Si se convierte todo el contenido del DobbleGame a String
+     */
     @Override
     public String toString() {
         return
@@ -148,6 +231,11 @@ public class DobbleGame implements DobbleGameInterface {
                         "\nEstado del Juego: " + GameStatus +
                         "\nArea de Juego: " + GameArea + "\n";
     }
+    /**
+     * Compara dos DobbleGame para verificar que sean iguales
+     * @param DBG1 Un DobbleGame cualquiera
+     * @return Boolean Si se comparan los dos DobbleGame
+     */
     @Override
     public boolean equals(Object DBG1){
         if(this == DBG1){

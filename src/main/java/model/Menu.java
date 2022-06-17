@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
+/**
+ * Clase que simula un Menu interactivo. Posee cuatro String estáticos
+ * y un DobbleGame
+ */
 public class Menu {
 
     static String MainMessage = "### Bienvenido a este MARAVILLOSO juego llamado Dobble ###\n";
@@ -18,30 +22,42 @@ public class Menu {
         this.Game = null;
     }
 
+    /**
+     * Permite ejecutar las distintas funcionalidades del menu
+     */
     public void run(){
-        int MainOption;
+        String MainOption;
         System.out.println(MainMessage);
         do{
             System.out.println(MainOptions);
             Scanner EntOption = new Scanner(System.in);
-            MainOption = EntOption.nextInt();
-            if(MainOption == 1){
-                Opcion1();
+            MainOption = EntOption.nextLine();
+            switch (MainOption) {
+                case "1":
+                    Opcion1();
+                    break;
+                case "2":
+                    Opcion2();
+                    break;
+                case "3":
+                    Opcion3();
+                    break;
+                case "4":
+                    Opcion4();
+                    break;
+                default:
+                    System.out.println("Opcion invalida, ingrese una opción nuevamente\n");
+                    break;
             }
-            if(MainOption == 2){
-                Opcion2();
-            }
-            if(MainOption == 3){
-                Opcion3();
-            }
-            if(MainOption == 4){
-                Opcion4();
-            }
-
-        }while(MainOption != 5);
+        }while(!MainOption.equals("5"));
         System.out.println("Gracias por haber jugado este MARAVILLOSO JUEGO");
         System.exit(0);
     }
+
+    /**
+     * Opcion 1 del Menu que permite al usuario generar un DobbleGame solicitándole
+     * los distintos parametros necesarios para construir el objeto de manera correcta
+     */
     public void Opcion1(){
         Scanner entrada2 = new Scanner(System.in);
         System.out.println("¿Cuantos elementos desea por carta?: ");
@@ -108,6 +124,12 @@ public class Menu {
             }while (flag);
         }
     }
+
+    /**
+     * Opcion 2 que le permite al usuario registrar jugadores dentro del juego
+     * si es que estos no se encuentran ya registrados y/o no se excede el
+     * máximo número de jugadores fijado durante la creación del DobbleGame
+     */
     public void Opcion2(){
         if(Game == null){
             System.out.println("No se pueden registrar jugadores porque no hay un juego creado\n");
@@ -125,24 +147,30 @@ public class Menu {
             }
         }
     }
+
+    /**
+     * Opcion 3 del menu que permite al usuario realizar las distintas jugadas
+     * que se pueden realizar en el juego DobbleGame creado y además puede
+     * solicitar visualizar la lista de puntajes actual
+     */
     public void Opcion3(){
         if(Game == null){
             System.out.println("No existen juegos creados para jugar\n\n");
         } else if(Game.ListPlayers.size() < 2){
             System.out.println("No existen jugadores suficientes para jugar\n");
         } else {
-            int Opcion_jugar;
+            String Opcion_jugar;
             System.out.println(PlayMessage);
             do{
                 System.out.println("### Es el turno de " + Game.whoseTurnsIsIt().getUsername() + " ###\n");
                 System.out.println(PlayOptions);
                 Scanner EntPlay = new Scanner(System.in);
-                Opcion_jugar = EntPlay.nextInt();
+                Opcion_jugar = EntPlay.nextLine();
                 if(Game.Status().equals("Terminado")){
                     System.out.println("¡El juego ha terminado!, no se pueden realizar más jugadas\n");
                 }
                 if(!(Game.Status().equals("Terminado"))) {
-                    if (Opcion_jugar == 1) {
+                    if(Opcion_jugar.equals("1")) {
                         if (Game.GameArea.size() == 2) {
                             System.out.println("Ya existen cartas en el area de juego\n");
                         } else {
@@ -157,14 +185,14 @@ public class Menu {
                             }
                         }
                     }
-                    if(Opcion_jugar == 2){
+                    if(Opcion_jugar.equals("2")){
                         System.out.println("Se he realizado con exito el pase de turno");
                         if(Game.GameArea.size() >= 2){
                             System.out.println("Las cartas han sido devueltas a su lugar\n");
                         }
                         Game.pass();
                     }
-                    if(Opcion_jugar == 3){
+                    if(Opcion_jugar.equals("3")){
                         if(Game.GameArea.size() < 2){
                             System.out.println("No hay suficientes cartas volteadas " +
                                     "realizar la comparacion de cartas\n");
@@ -185,7 +213,7 @@ public class Menu {
                             }
                         }
                     }
-                    if (Opcion_jugar == 4) {
+                    if(Opcion_jugar.equals("4")) {
                         ArrayList<Card> Aux_Missing = Game.DobbleSet.missingCards();
                         System.out.println("Este es el Aux_Missing = " + Aux_Missing);
                         Opcion4();
@@ -207,19 +235,23 @@ public class Menu {
                             }
                         }
                     }
-                    if(Opcion_jugar == 5){
+                    if(Opcion_jugar.equals("5")){
                         System.out.println(Game.Puntajes());
                     }
                 }
-                if(Opcion_jugar == 6){
+                if(Opcion_jugar.equals("6")) {
                     System.out.println("¡El juego ha finalizado!\n" + "Estos son los puntajes:\n");
                     Game.finish();
                 }
-
-
-            }while(Opcion_jugar != 6);
+            }while(!Opcion_jugar.equals("6"));
         }
-        }
+    }
+
+    /**
+     * Opcion 4 que permite visualizar los elementos del DobbleGame creado,
+     * los cuales son las cartas del mazo, la lista de jugadores registrados,
+     * los elementos usados en las cartas, entre otros.
+     */
     public void Opcion4(){
         if(!(Game == null)){
             System.out.println("\n------------### GAME Dobble ###------------\n");
@@ -230,6 +262,10 @@ public class Menu {
         }
     }
 
+    /**
+     * Modifica el juego (DobbleGame) almacenado en el Menu interactivo
+     * @param game (DobbleGame) Un juego cualquiera a fijar
+     */
     public void setGame(DobbleGame game) {
         Game = game;
     }

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public interface DobbleInterface {
     ArrayList<Card> setConstructor(ArrayList<String> E, Integer Num, Integer C);
-    int numCards();
     boolean IsDobble();
     ArrayList<Card> missingCards();
     void AddCard(Integer Pos);
