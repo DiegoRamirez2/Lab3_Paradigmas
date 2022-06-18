@@ -126,7 +126,7 @@ public class DobbleGame implements DobbleGameInterface {
     /**
      * Efectua el pase de turno del juego, otorgandole el turno
      * de juego al siguiente jugador de la lista de jugadores
-     * y devuelve las cartas del Área de juego al Set de cartas
+     * y devuelve las cartas del área de juego al Set de cartas
      */
     public void pass() {
         if (GameArea.size() < 2) {
@@ -232,7 +232,7 @@ public class DobbleGame implements DobbleGameInterface {
                         "\nArea de Juego: " + GameArea + "\n";
     }
     /**
-     * Compara dos DobbleGame para verificar que sean iguales
+     * Compara dos DobbleGame para verificar que tengan el mismo estado
      * @param DBG1 Un DobbleGame cualquiera
      * @return Boolean Si se comparan los dos DobbleGame
      */

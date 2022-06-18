@@ -34,7 +34,7 @@ public class Card extends ArrayList<Object> implements CardInterface {
     }
 
     /**
-     * Compara dos Cartas para verificar que sean iguales
+     * Compara dos Cartas para verificar que tengan el mismo estado
      * @param C1 Una carta cualquiera
      * @return Boolean Si se comparan las dos cartas
      */

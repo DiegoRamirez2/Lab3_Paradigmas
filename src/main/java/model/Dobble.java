@@ -153,7 +153,7 @@ public class Dobble implements DobbleInterface {
     }
 
     /**
-     * Compara este Dobble con otro para verificar que sean iguales
+     * Compara este Dobble con otro para verificar que tengan el mismo estado
      * @param DB1 Un dobble (Dobble) cualquiera
      * @return Boolean Si se comparan los dos Dobble
      */

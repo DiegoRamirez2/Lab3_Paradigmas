@@ -51,7 +51,7 @@ public class Player implements Comparable<Player>, PlayerInterface {
     }
 
     /**
-     * Compara este Player con otro para verificar que sean iguales
+     * Compara este Player con otro para verificar que tengan el mismo estado
      * @param P1 Un jugador (Player) cualquiera
      * @return Boolean Si se comparan los dos Player
      */
